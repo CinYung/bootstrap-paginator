@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="css/font-awesome/font-awesome.min.css">
+        <script src="lib/jquery/jquery-3.2.1.min.js"></script>
+        <script src="bootstrap-paginator.js"></script>
+    </head>
+    <body>
+        <div>
+            <h5>示例：共13页，分别显示1,7,13的情况</h5>
+        </div>
+        <div>
+            <h6>example1</h6>
+            <nav aria-label="Page navigation ">
+                <ul class="pagination" id="example1"></ul>
+            </nav>
+        </div>
+        <div>
+            <h6>example2</h6>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination" id="example2"></ul>
+            </nav>
+        </div>
+        <div>
+            <h6>example3</h6>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination" id="example3"></ul>
+            </nav>
+        </div>
+        <script>
+            let options1 = {
+                bootstrapMajorVersion: 4,
+                currentPage: 1,
+                totalPages: 13,
+                numberOfPages: 5,
+                size: "normal",
+                itemContainerClass: function(type, page, current) {
+                    let className = 'page-item';
+                    this.currentPage = parseInt(this.currentPage);
+                    this.totalPages = parseInt(this.totalPages);
+
+                    switch (type) {
+                        case "first":
+                            className = this.currentPage === 1 ? className + ' disabled' : className;
+                            break;
+                        case "prev":
+                            className = this.currentPage === 1 ? className + ' disabled' : className;
+                            break;
+                        case "next":
+                            className = this.currentPage === this.totalPages ? className + ' disabled' : className;
+                            break;
+                        case "last":
+                            className = this.currentPage === this.totalPages ? className + ' disabled' : className;
+                            break;
+                        case "page":
+                            className = page === this.currentPage ? className + ' active' : className;
+                            break;
+                    }
+
+                    return className;
+                },
+                itemContentClass: function(type, page, current) {
+                    return 'page-link';
+                },
+                itemTexts: function(type, page, current) {
+                    switch (type) {
+                        case "first":
+                            return '<i class="fa fa-caret-left"></i>';
+                        case "prev":
+                            return '<i class="fa fa-angle-left"></i>';
+                        case "next":
+                            return '<i class="fa fa-angle-right"></i>';
+                        case "last":
+                            return '<i class="fa fa-caret-right"></i>';
+                        case "page":
+                            return page;
+                        case "more":
+                            return '...';
+                    }
+                },
+                shouldShowPage: function (type, page, current) {
+                    let result = true;
+                    switch (type) {
+                        case "first":
+                            break;
+                        case "prev":
+                            break;
+                        case "next":
+                            break;
+                        case "last":
+                            break;
+                        case "page":
+                            break;
+                        case "more":
+                            result = (page !== this.totalPages);
+                        break;
+                    }
+                    return result;
+                    },
+                pageUrl: function(type, page, current){
+                    let queryData = JSON.parse('{"id": 234}');
+                    // 如果没有附带查询条件则直接返回
+                    if (Object.keys(queryData).length <= 0) {
+                        return "?page=" + page;
+                    }
+                    // 有其它数据则重新赋值page，然后组合字符串
+                    queryData.page = page;
+                    let queryArray = [];
+                    for(let tmp in queryData) {
+                        let tempString = tmp + '=' + queryData[tmp];
+                        queryArray.push(tempString);
+                    }
+
+                    let firstQuery = queryArray.shift();
+                    let queryString = queryArray.join('&');
+                    return  queryString === '' ? '?' + firstQuery : '?' + firstQuery + '&' + queryString;
+                }
+            };
+            $("#example1").bootstrapPaginator(options1);
+            let options2 = {
+                bootstrapMajorVersion: 4,
+                currentPage: 7,
+                totalPages: 13,
+                numberOfPages: 5,
+                size: "normal",
+                itemContainerClass: function(type, page, current) {
+                    let className = 'page-item';
+                    this.currentPage = parseInt(this.currentPage);
+                    this.totalPages = parseInt(this.totalPages);
+
+                    switch (type) {
+                        case "first":
+                            className = this.currentPage === 1 ? className + ' disabled' : className;
+                            break;
+                        case "prev":
+                            className = this.currentPage === 1 ? className + ' disabled' : className;
+                            break;
+                        case "next":
+                            className = this.currentPage === this.totalPages ? className + ' disabled' : className;
+                            break;
+                        case "last":
+                            className = this.currentPage === this.totalPages ? className + ' disabled' : className;
+                            break;
+                        case "page":
+                            className = page === this.currentPage ? className + ' active' : className;
+                            break;
+                    }
+
+                    return className;
+                },
+                itemContentClass: function(type, page, current) {
+                    return 'page-link';
+                },
+                itemTexts: function(type, page, current) {
+                    switch (type) {
+                        case "first":
+                            return '<i class="fa fa-caret-left"></i>';
+                        case "prev":
+                            return '<i class="fa fa-angle-left"></i>';
+                        case "next":
+                            return '<i class="fa fa-angle-right"></i>';
+                        case "last":
+                            return '<i class="fa fa-caret-right"></i>';
+                        case "page":
+                            return page;
+                        case "more":
+                            return '...';
+                    }
+                },
+                shouldShowPage: function (type, page, current) {
+                    let result = true;
+                    switch (type) {
+                        case "first":
+                            break;
+                        case "prev":
+                            break;
+                        case "next":
+                            break;
+                        case "last":
+                            break;
+                        case "page":
+                            break;
+                        case "more":
+                            result = (page !== this.totalPages);
+                            break;
+                    }
+                    return result;
+                },
+                pageUrl: function(type, page, current){
+                    let queryData = JSON.parse('{"id": 234}');
+                    // 如果没有附带查询条件则直接返回
+                    if (Object.keys(queryData).length <= 0) {
+                        return "?page=" + page;
+                    }
+                    // 有其它数据则重新赋值page，然后组合字符串
+                    queryData.page = page;
+                    let queryArray = [];
+                    for(let tmp in queryData) {
+                        let tempString = tmp + '=' + queryData[tmp];
+                        queryArray.push(tempString);
+                    }
+
+                    let firstQuery = queryArray.shift();
+                    let queryString = queryArray.join('&');
+                    return  queryString === '' ? '?' + firstQuery : '?' + firstQuery + '&' + queryString;
+                }
+            };
+            $("#example2").bootstrapPaginator(options2);
+            let options3 = {
+                bootstrapMajorVersion: 4,
+                currentPage: 13,
+                totalPages: 13,
+                numberOfPages: 5,
+                size: "normal",
+                itemContainerClass: function(type, page, current) {
+                    let className = 'page-item';
+                    this.currentPage = parseInt(this.currentPage);
+                    this.totalPages = parseInt(this.totalPages);
+
+                    switch (type) {
+                        case "first":
+                            className = this.currentPage === 1 ? className + ' disabled' : className;
+                            break;
+                        case "prev":
+                            className = this.currentPage === 1 ? className + ' disabled' : className;
+                            break;
+                        case "next":
+                            className = this.currentPage === this.totalPages ? className + ' disabled' : className;
+                            break;
+                        case "last":
+                            className = this.currentPage === this.totalPages ? className + ' disabled' : className;
+                            break;
+                        case "page":
+                            className = page === this.currentPage ? className + ' active' : className;
+                            break;
+                    }
+
+                    return className;
+                },
+                itemContentClass: function(type, page, current) {
+                    return 'page-link';
+                },
+                itemTexts: function(type, page, current) {
+                    switch (type) {
+                        case "first":
+                            return '<i class="fa fa-caret-left"></i>';
+                        case "prev":
+                            return '<i class="fa fa-angle-left"></i>';
+                        case "next":
+                            return '<i class="fa fa-angle-right"></i>';
+                        case "last":
+                            return '<i class="fa fa-caret-right"></i>';
+                        case "page":
+                            return page;
+                        case "more":
+                            return '...';
+                    }
+                },
+                shouldShowPage: function (type, page, current) {
+                    let result = true;
+                    switch (type) {
+                        case "first":
+                            break;
+                        case "prev":
+                            break;
+                        case "next":
+                            break;
+                        case "last":
+                            break;
+                        case "page":
+                            break;
+                        case "more":
+                            result = (page !== this.totalPages);
+                            break;
+                    }
+                    return result;
+                },
+                pageUrl: function(type, page, current){
+                    let queryData = JSON.parse('{"id": 234}');
+                    // 如果没有附带查询条件则直接返回
+                    if (Object.keys(queryData).length <= 0) {
+                        return "?page=" + page;
+                    }
+                    // 有其它数据则重新赋值page，然后组合字符串
+                    queryData.page = page;
+                    let queryArray = [];
+                    for(let tmp in queryData) {
+                        let tempString = tmp + '=' + queryData[tmp];
+                        queryArray.push(tempString);
+                    }
+
+                    let firstQuery = queryArray.shift();
+                    let queryString = queryArray.join('&');
+                    return  queryString === '' ? '?' + firstQuery : '?' + firstQuery + '&' + queryString;
+                }
+            };
+            $("#example3").bootstrapPaginator(options3);
+        </script>
+    </body>
+</html>
